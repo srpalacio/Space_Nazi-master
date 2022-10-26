@@ -1,11 +1,9 @@
-import pygame
 
 class Ship:
     
     def __init__(self):
         self.x=200
-        self.coord_y=200
-        pass
+        self.coord_y=300
 
     def move(self, direction):
 
@@ -14,10 +12,7 @@ class Ship:
             self.x+=1
         elif direction=="LEFT":
             self.x-=1
-        return self.x
-    
-    def shoot(self):
-        pass
+        return self.x  
     
     def explode(self):
         pass

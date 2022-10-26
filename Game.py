@@ -1,5 +1,6 @@
 from Sky import Sky
 from Ship import Ship
+from Bullet import Bullet
 import pygame
 import random
 
@@ -21,7 +22,14 @@ class Game:
         
         self.shipsprite= pygame.Surface((64,64)).convert()
         self.shipsprite.blit(self.sprites,(0,0),(250,436,64,64))
+        
+        self.sprites_2= pygame.image.load("bulletsprite.png")
+        
+        self.bulletsprite= pygame.Surface((10,10)).convert()
+        self.bulletsprite.blit(self.sprites_2,(0,0),(94,180,270,360))
+
         self.myShip=Ship()
+        self.myBullets=Bullet()
         
 
     def run(self):
@@ -50,9 +58,14 @@ class Game:
             self.mySky.move()            
             
             x=self.myShip.move(self.checkkeys())
-            y=self.height/2
+            y=300
             self.screen.blit(self.shipsprite, (x,y))
-                
+            
+
+            bullet_x=x
+            bullet_y=self.myBullets.bmove(self.checkshoot())
+            self.screen.blit(self.bulletsprite, (bullet_x,bullet_y))
+
             pygame.display.flip()
             
             self.clock.tick(self.fps)
@@ -65,6 +78,13 @@ class Game:
 
         if  keys[pygame.K_RIGHT]:
             return "RIGHT"
+        
+    def checkshoot(self):
+        keys=pygame.key.get_pressed()
+        shoot=False
+        if  keys[pygame.K_w]:
+             shoot=True
+        return shoot     
             
 myGame=Game()
 myGame.run()
